@@ -1,8 +1,12 @@
-trainingData_Y = readcsv(~/Documents/Msc project/) % n_tainingItems x 1
-trainingData_X % n_trainingItems x n_variables
+trainingData_Y = readcsv(~/Documents/Msc-project/) % n_tainingItems x 1
+trainingData_X = readcsv(~/Documents/Msc-project/) % n_trainingItems x n_variables
 % n_variables = 1 for coarse preferences
 
 n_users = 10429;
+user_id = readscv(encoded_user_id.csv)
+items_of_user = cell(n_users)
+for usr in 1:n_users:
+    items_of_user{usr} = find(user_id==usr-1)
 priorMEANs = cell(n_users);
 priorVARs = cell(n_users);
 
@@ -22,12 +26,11 @@ end % for each user
 
 
 presetVariance = 0.2; % or whatever feels appropriate; something small.
-usr = 
+usr = 1
 getTrainingDataForUser % this depends on how your data is stored, but the
 % idea is to only get the data points that correspond to the specific user,
 % and only the ones in the training dataset.v
-for itm = 1:n_ratingsPerUser{usr}
-    itm
+for itm = 1:items_of_user{usr}
     sumEvidence = struct( ...
         'adjustedMean', trainingData_Y(itm)/presetVariance, ...
         'precision', 1/presetVariance );
